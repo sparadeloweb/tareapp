@@ -1,0 +1,267 @@
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+*{
+    font-family: 'Bebas Neue', cursive;
+    color: #353b48;
+    margin: 0;
+}
+
+body.dark-mode *{
+  color: white;
+}
+
+#app{
+    background: url('../img/background-light.jpg');
+    height: 100vh; 
+    background-size:cover;
+    background-repeat: round;
+    transition: all 200ms;
+}
+
+body.dark-mode #app{
+  background: url('../img/background-dark.jpg');
+}
+
+#contentTasks{
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+    flex-direction: column;
+    padding: 15px;
+}
+
+#contentTasks h1{
+    margin-bottom: 20px;
+    font-size: 50px;
+    padding: 10px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 1px 1px 2px black;
+    box-shadow: 2px 2px 2px black;
+    box-shadow: 3px 3px 4px black;
+}
+
+body.dark-mode #contentTasks h1{
+  background: #1e272e;
+  color: white;
+  box-shadow: 1px 1px 2px #485460;
+  box-shadow: 2px 2px 2px #485460;
+  box-shadow: 3px 3px 4px #485460;
+  transition: all 200ms;
+}
+
+#contentTasks > p {
+    color: #1e272e;
+    font-size: 25px;
+    margin-bottom: -10px;
+}
+
+body.dark-mode #contentTasks > p{
+  color: white;
+}
+
+#addTask{
+    width: 800px;
+    height: 50px;
+    text-align: center;
+    border: none;
+    border-radius: 75px 0px 75px 0px;
+    transition: all 200ms;
+    box-shadow: 1px 1px 2px black;
+    font-size: 25px;
+}
+
+
+
+body.dark-mode #addTask{
+  background: #1e272e;
+  box-shadow: 1px 1px 2px #485460;
+  color: white;
+}
+
+#addTask:focus{
+    outline: none;
+    box-shadow: 1px 1px 2px #ccc;
+    box-shadow: 2px 2px 2px #444;
+    box-shadow: 3px 3px 2px black;
+}
+
+#tasksList{
+    margin-top: 20px;
+    height: 400px;
+    width: 800px;
+    background: white;
+    overflow: scroll;
+    border-radius: 10px;
+    border-radius: 10px 10px 0px 0px;
+    box-shadow: 1px 1px 2px black;
+}
+
+body.dark-mode #tasksList{
+  background: #1e272e;
+  box-shadow: 1px 1px 2px #485460;
+  color: white;
+  transition: all 200ms;
+}
+
+#noTaskAdded{
+    text-align: center;
+    line-height: 1200%;
+    transition: all 200ms;
+}
+
+body.dark-mode #noTaskAdded{
+  color: white;
+}
+
+.task-item-added{
+    height: 50px;
+    display: flex;
+    line-height: 50px;
+    border-bottom: 1px solid #ccc;
+}
+
+
+
+.task-item-added #removeTask{
+    margin-left: 10px;
+    height: 30px;
+    margin-top: 8px;
+    line-height: 10px;
+    margin-right: 10px;
+}
+
+#removeAllTasks{
+    width: 800px;
+    margin-top: 10px;
+    margin-bottom: 50px;
+    border-radius: 10px;
+}
+
+.btn{
+    color: white;
+    box-shadow: 1px 1px 2px black;
+    box-shadow: 2px 2px 2px black;
+    font-size: 20px;
+    font-weight: normal;
+}
+
+body.dark-mode .btn{
+  color: #1e272e;
+}
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #1e272e;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: white;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #1e272e;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+    background: #1e272e;
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+  #underBar{
+    padding-top: 8px;
+    padding-bottom: 5px;
+    width: 800px;
+    background: white;
+    border-radius: 0px 0px 10px 10px;
+  }
+
+  body.dark-mode #underBar{
+    background: #1e272e;
+  }
+
+  #darkToggle{
+    margin-left: 10px;
+    margin-bottom: 10px;
+  }
+
+  .table{
+    font-size: 2vh;
+  }
+
+  body.dark-mode .table-dark{
+    --bs-table-bg: #1e272e;
+    --bs-table-striped-bg: #2c3034;
+    --bs-table-striped-color: #fff;
+    --bs-table-active-bg: #1e272ee;
+    --bs-table-active-color: #fff;
+    --bs-table-hover-bg: #1e272e;
+    --bs-table-hover-color: #fff;
+    color: #fff;
+    border-color: #373b3e;
+  }
+
+  body.dark-mode .table-dark tr{
+    text-shadow: 1px 1px 2px black;
+  }
+
+@media (max-width: 850px){
+    #tasksList,
+    #removeAllTasks,
+    #addTask,
+    #underBar{
+        width: 100%;
+    }
+    #contentTasks{
+      margin-top: 0px;
+    }
+}

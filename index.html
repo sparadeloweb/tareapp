@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TareAPP - Por Santiago Paradelo</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Press+Start+2P&family=Roboto+Condensed:wght@300;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/new-buttons.css">
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="icon" type="image/png" href="./img/ico.png">
+</head>
+<body>
+    <div id="app" class="container-fluid">
+        <div class="row" id="tareapp">
+            <div id="contentTasks">
+                <h1>TareAPP - Por Santiago Paradelo</h1>
+                <input type="text" v-model="task" id="addTask" @keyup.enter="addTaskMethod" @click="clearTaskText" @blur="addTaskText" maxlength="60">
+                <p v-if="typing" class="mt-2" id="availableChars">Caracteres disponibles: {{chars_availables - task.length}}</p>
+                <div id="tasksList">
+                    <h2 v-if="!tasks.length" id="noTaskAdded">No hay tareas agregadas</h2>
+                    <table class="table align-middle text-center" id="taskTable" v-if="tasks.length">
+                        <thead>
+                          <tr>
+                            <th scope="col">Tarea</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Acción</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="task in tasks">
+                            <th>{{task.title}}</th>
+                            <th>{{task.date}}</th>
+                            <th v-if="dark_mode_toggle_value == 'yes'"><button @click="removeTask(task.title)" class="btn btn-info" id="removeTask" style="height: 10px; line-height: 5px;">Eliminar</button></th>
+                            <th v-else><button @click="removeTask(task.title)" class="btn btn-danger" id="removeTask" style="height: 10px; line-height: 5px;">Eliminar</button></th>
+                        </tr>
+                        </tbody>
+                      </table>
+                </div>
+                <div id="underBar">
+                    <hr>
+                    <div id="darkToggle">
+                        <label class="switch">
+                            <input type="checkbox" id="darkModeCheckBox" v-model="dark_mode_toggle_value" true-value='yes' false-value='no' @click="darkModeToggle">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-info" id="removeAllTasks" @click="removeAllTasks" v-if="dark_mode_toggle_value == 'yes'">Remover todas las tareas</button>
+                <button class="btn btn-danger" id="removeAllTasks" @click="removeAllTasks" v-else>Remover todas las tareas</button>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        let today = new Date();
+        let dd = String(today.getDate()).padStart(2, '0');
+        let mm = String(today.getMonth() + 1).padStart(2, '0');
+        let yyyy = today.getFullYear();
+        today = dd + '/' + mm + '/' + yyyy;
+
+        if(!localStorage.getItem('tasks')){
+            localStorage.setItem('tasks', JSON.stringify([]));
+        }
+
+        if(localStorage.getItem('dark_mode_enabled') === null){
+            localStorage.setItem('dark_mode_enabled', 'no');
+        }
+
+        if(localStorage.getItem('dark_mode_enabled') != null){
+            if(localStorage.getItem('dark_mode_enabled') == 'yes'){
+                document.body.classList.add("dark-mode");
+                let table = document.getElementById('taskTable');
+                table.classList.add('table-dark');
+            }
+        }
+
+        const app = new Vue({
+            el: '#app',
+            data: {
+                task: "Agrega una nueva tarea...",
+                tasks: JSON.parse(localStorage.getItem('tasks')),
+                date: today,
+                typing: false,
+                dark_mode_toggle_value: localStorage.getItem('dark_mode_enabled'),
+                chars_availables: 60,
+            },
+            methods: {
+                addTaskMethod: function () {
+                    let object_to_add = {};
+                    object_to_add['title'] = this.task;
+                    object_to_add['date'] = this.date;
+                    this.tasks.push(object_to_add);
+                    localStorage.setItem('tasks', JSON.stringify(this.tasks));
+                    document.getElementById('addTask').setAttribute("disabled", "disabled");;
+                    setTimeout(function () {
+                        document.getElementById('addTask').removeAttribute('disabled');
+                        this.task = "Agrega una nueva tarea...";
+                    }, 1000);
+                },
+                clearTaskText: function () {
+                    this.task = "";
+                    this.typing = true;
+                },
+                removeTask: function (title) {
+                    let i = this.tasks.findIndex(task=>task.title===title);
+                    if(i !== -1){
+                        this.tasks.splice(i, 1);
+                        localStorage.setItem('tasks', JSON.stringify(this.tasks));
+                    }
+                },
+                removeAllTasks: function () {
+                    this.tasks = [];
+                    localStorage.setItem('tasks', JSON.stringify(this.tasks));
+                },
+                addTaskText: function () {
+                    this.task = "Agrega una nueva tarea...";
+                    this.typing = false;
+                },
+                darkModeToggle: function () {
+                    if(this.dark_mode_toggle_value == 'yes'){
+                        this.dark_mode_toggle_value = 'no';
+                        localStorage.setItem('dark_mode_enabled', this.dark_mode_toggle_value);
+                    } else if (this.dark_mode_toggle_value == 'no') {
+                        this.dark_mode_toggle_value = 'yes';
+                        localStorage.setItem('dark_mode_enabled', this.dark_mode_toggle_value);
+                    }
+                }
+            },
+            watch: {
+                dark_mode_toggle_value: function (val) {
+                    if(val == 'yes'){
+                        let checkbox = document.getElementById('darkModeCheckBox');
+                        checkbox.checked = true;
+                        document.body.classList.add("dark-mode");
+                        let table = document.getElementById('taskTable');
+                        if(table){
+                            table.classList.add('table-dark');
+                        }
+                    } else if (val == 'no'){
+                        let checkbox = document.getElementById('darkModeCheckBox');
+                        checkbox.checked = false;
+                        document.body.classList.remove("dark-mode");
+                        let table = document.getElementById('taskTable');
+                        if(table){
+                            table.classList.remove('table-dark');
+                        }
+                    }
+                },
+                chars_availables: function (val) {
+                    console.log(val);
+                    if (val == 0){
+                        let warning_text = document.getElementById('availableChars');
+                        console.log('hola');
+                        warning_text.classList.add('c-red');
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
