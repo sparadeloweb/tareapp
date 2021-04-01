@@ -265,3 +265,18 @@ body.dark-mode .btn{
       margin-top: 0px;
     }
 }
+
+@media(max-height: 800px){
+  #app{
+    min-height: 100vh;
+    height: 200%;
+  }
+
+  #tasksList{
+    height: 300px;
+  }
+
+  .table{
+    font-size: 3vh;
+  }
+}
