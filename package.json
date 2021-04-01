@@ -1,0 +1,25 @@
+{
+  "name": "tareapp",
+  "version": "1.0.0",
+  "description": "TareAPP - Creada por Santiago Paradelo",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sparadeloweb/tareapp.git"
+  },
+  "keywords": [
+    "CSS",
+    "HTML",
+    "Vue.js",
+    "JavaScript"
+  ],
+  "author": "Santiago Paradelo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sparadeloweb/tareapp/issues"
+  },
+  "homepage": "https://github.com/sparadeloweb/tareapp#readme"
+}
